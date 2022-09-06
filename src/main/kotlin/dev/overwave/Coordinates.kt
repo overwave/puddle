@@ -28,10 +28,13 @@ fun yToLatitude(y: Double): Double {
     return latitude * C_180_PI
 }
 
-fun fromGlobalPixels(tileCoordinate: TileCoordinate): WorldCoordinate {
-    val pixelsPerMeter = 2.0.pow(tileCoordinate.zoom + 8.0) * SUBEQUATOR
-    val longitude = xToLongitude(tileCoordinate.x / pixelsPerMeter - HALF_EQUATOR)
-    val latitude = yToLatitude(HALF_EQUATOR - tileCoordinate.y / pixelsPerMeter)
+fun fromGlobalPixels(tileCoordinate: TileCoordinate) =
+    fromGlobalPixels(tileCoordinate.x, tileCoordinate.y, tileCoordinate.zoom)
+
+fun fromGlobalPixels(x: Long, y: Long, zoom: Int): WorldCoordinate {
+    val pixelsPerMeter = 2.0.pow(zoom + 8.0) * SUBEQUATOR
+    val longitude = xToLongitude(x / pixelsPerMeter - HALF_EQUATOR)
+    val latitude = yToLatitude(HALF_EQUATOR - y / pixelsPerMeter)
     return WorldCoordinate(latitude, longitude)
 }
 

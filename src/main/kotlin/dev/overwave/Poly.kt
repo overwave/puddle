@@ -7,6 +7,8 @@ data class Poly(
     val points: List<WorldCoordinate>,
 ) {
     fun contains(lat: Double, lon: Double): Boolean {
+        if (lon > 30 && lon < 60)
+            println("")
         var result = false
         var i = 0
         var j = points.size - 1
